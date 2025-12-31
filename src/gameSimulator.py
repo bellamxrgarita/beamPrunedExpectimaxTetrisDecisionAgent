@@ -32,13 +32,13 @@ expectimax returns and action, the gamesim does that action then randomly genera
 the next piece for expectimax to handle 
 
 '''
-
 #the python GUI thing (According to google summary)
 import tkinter as tk
 import time
 import random
 import copy
 from TetrisStateSpace import TetrisStateSpace, SHAPES
+import sys 
 
 # config items
 CELL_SIZE = 30
@@ -96,7 +96,6 @@ class TetrisApp:
         #     self.game_loop_headless()
 
     
-
     #Redraws the permanent blocks on the board
     def draw_board(self):
         self.canvas.delete("all")
@@ -359,9 +358,23 @@ class TetrisApp:
 
 if __name__ == "__main__":
     from beamsearchChanceAgent import beamsearchChanceAgent
-    # Initialize Agent
-    bot = beamsearchChanceAgent("BeamChanceBot")
-    #bot = expectimaxAgent("expectimaxBot")
+    from beamPrunedExpectimaxAgent import beamPrunedExpectimaxAgent
+    from expectimaxAgent import expectimaxAgent
+
+    if len(sys.argv) != 2:
+        print("Usage: python3 gameSimulator.py [beamSearchChance|expectimax|beamPrunedExpectimax]")
+        sys.exit(1)
+
+    agentType = sys.argv[1]
+    if (agentType not in ["beamSearchChance", "expectimax","beamPrunedExpectimax"]):
+        print("Please enter a valid agentType as an argument to simulate. The valid options are `beamSearchChance`, `beamPrunedExpectimax`, and `expectimax`")
+        sys.exit(1)
+    if (agentType == "beamSearchChance"):
+        bot =  beamsearchChanceAgent("BeamChanceBot")
+    elif agentType == "beamPrunedExpectimax":
+        bot = beamPrunedExpectimaxAgent("BeamPrunedExpectimax")
+    else:
+        bot = expectimaxAgent("expectimaxBot")
     
     # True = No Pop up (Fast)
     # False = Pop up window (Animation)
