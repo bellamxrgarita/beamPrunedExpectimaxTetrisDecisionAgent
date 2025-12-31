@@ -3,8 +3,7 @@ This project explores how to design scalable, autonomous decision-making agents 
 
 Tetris is challenging because each piece placement dramatically increases the number of possible future board configurations. While the next two pieces are known, all subsequent pieces are generated randomly, causing naïve search strategies to become unusable due to exponential branching. This project focuses on identifying those limitations and redesigning the decision process to operate effectively under real computational constraints.
 
-**TL;DR:**  
-An autonomous Tetris agent that combines Expectimax with beam pruning to handle exponential state growth, achieving 8,000+ lines cleared in long-horizon simulations.
+
 
 ## Requirements
 - Python 3.9+
